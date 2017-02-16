@@ -2791,6 +2791,7 @@ def main(argv):
 	copy_file(BIOM_file_PATH, CURRENT_PATH + 'miseq_sop_result_biom_format.biom')
 	copy_file(SAS_file_PATH, CURRENT_PATH + 'miseq_sop_result_sas_format.txt')
 	copy_file(shared_file_PATH, CURRENT_PATH + 'miseq_sop_result_mothur_format.txt')
+	copy_file(args.outputdir + "miseq_sop_report.txt", CURRENT_PATH + "miseq_sop_report.txt")
 
 	print "Execution completed at ", time.strftime("%Y-%m-%d %H:%M:%S")
 	report("Execution completed at " + time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -2798,8 +2799,6 @@ def main(argv):
 	print "####################################################################"
 	# ----------------------------- END OF GENERATE RESULT
 	flag = remove_extension_files(CURRENT_PATH, '.logfile')
-
-
 	print "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	report("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	print "MISEQ SOP EXECUTION COMPLETED."
