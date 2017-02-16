@@ -5,6 +5,23 @@ ENV ROOT=/
 ENV CURRENT_PATH=.
 CMD ["/bin/bash"]
 ##############################################################
+# Software:             PIP INSTALL PACKAGES
+# Software Version:     1.0
+# Software Website:     -
+# Description:          required javascript library
+##############################################################
+RUN pip install numpy
+RUN pip install scipy
+RUN pip install plotly
+RUN pip install pandas
+RUN pip install biom-format
+RUN pip install xlrd
+RUN pip install openpyxl
+RUN pip install xlwt
+RUN pip install XlsxWriter
+RUN pip install lxml
+RUN pip install zip
+##############################################################
 # Software:             MOTHUR
 # Software Version:     98
 # Software Website:     -
@@ -43,6 +60,20 @@ RUN chmod -R 0755 $CURRENT_PATH/MISEQ_SOP_TESTDIR
 RUN rm -rf $CURRENT_PATH/__MACOSX
 RUN rm -rf $CURRENT_PATH/MiSeq_SOP
 RUN rm -rf $CURRENT_PATH/MiSeqSOPData.zip
+##############################################################
+# Software:             GREENGENESE
+# Software Version:     13_8_99
+# Software Website:     -
+# Description:          gg_13_8_99
+##############################################################
+RUN wget http://www.mothur.org/w/images/6/68/Gg_13_8_99.taxonomy.tgz
+RUN tar zxvf Gg_13_8_99.taxonomy.tgz
+RUN mkdir $CURRENT_PATH/MISEQ_SOP_TAXDIR
+RUN mv $CURRENT_PATH/gg_13_8_99* $CURRENT_PATH/MISEQ_SOP_TAXDIR
+RUN rm -rf $CURRENT_PATH/README.Rmd
+RUN rm -rf $CURRENT_PATH/README.html
+RUN rm -rf $CURRENT_PATH/Gg_13_8_99.taxonomy.tgz
+RUN chmod -R 0755 $CURRENT_PATH/MISEQ_SOP_TAXDIR
 ##############################################################
 # Software:             PYTHON SCRIPT
 # Software Version:     1
