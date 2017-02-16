@@ -14,23 +14,21 @@ RUN wget https://github.com/mothur/mothur/releases/download/v1.39.1/Mothur.linux
 RUN unzip Mothur.linux_64.zip
 RUN mkdir $CURRENT_PATH/MISEQ_SOP_EXECDIR
 RUN mv $CURRENT_PATH/mothur $CURRENT_PATH/MISEQ_SOP_EXECDIR/
-RUN chmod -R 0755 $CURRENT_PATH/MISEQ_SOP_EXECDIR
 RUN rm -rf $CURRENT_PATH/__MACOSX
 RUN rm -rf $CURRENT_PATH/Mothur.linux_64.zip
 ##############################################################
-# Software:             SILVA
-# Software Version:     98
+# Software:             MAFFT
+# Software Version:     7.22
 # Software Website:     -
-# Description:          SILVA TAXONOMY FILE
+# Description:          MAFFT
 ##############################################################
-RUN wget https://www.mothur.org/w/images/9/98/Silva.bacteria.zip
-RUN unzip Silva.bacteria.zip
-RUN mkdir $CURRENT_PATH/MISEQ_SOP_TAXDIR
-RUN mv $CURRENT_PATH/silva.bacteria/* $CURRENT_PATH/MISEQ_SOP_TAXDIR
-RUN chmod -R 0755 $CURRENT_PATH/MISEQ_SOP_TAXDIR
-RUN rm -rf $CURRENT_PATH/__MACOSX
-RUN rm -rf $CURRENT_PATH/silva.bacteria
-RUN rm -rf $CURRENT_PATH/Silva.bacteria.zip
+RUN wget http://mafft.cbrc.jp/alignment/software/mafft-7.222-linux.tgz
+RUN tar zxvf mafft-7.222-linux.tgz
+RUN mv $CURRENT_PATH/mafft-linux64/* $CURRENT_PATH/MISEQ_SOP_EXECDIR/
+RUN rm -rf $CURRENT_PATH/mafft-7.222-linux.tgz
+RUN rm -rf $CURRENT_PATH/mafft-linux64
+RUN rm -rf $CURRENT_PATH/mafft-linux32
+RUN chmod -R 0755 $CURRENT_PATH/MISEQ_SOP_EXECDIR
 ##############################################################
 # Software:             TEST DATA
 # Software Version:     1
@@ -52,7 +50,7 @@ RUN rm -rf $CURRENT_PATH/MiSeqSOPData.zip
 # Description:          python
 ##############################################################
 VOLUME $CURRENT_PATH/MISEQ_SOP_OUTPUTDIR
-RUN wget https://raw.githubusercontent.com/amirshams84/Miseq_SOP/master/MiSeq_SOP.py -P $CURRENT_PATH/
+RUN wget https://raw.githubusercontent.com/amirshams84/Miseq_SOP/master/miseq_sop.py -P $CURRENT_PATH/
 
 
 
