@@ -2791,8 +2791,7 @@ def main(argv):
 	copy_file(BIOM_file_PATH, CURRENT_PATH + 'miseq_sop_result_biom_format.biom')
 	copy_file(SAS_file_PATH, CURRENT_PATH + 'miseq_sop_result_sas_format.txt')
 	copy_file(shared_file_PATH, CURRENT_PATH + 'miseq_sop_result_mothur_format.txt')
-	copy_file(args.outputdir + "miseq_sop_report.txt", CURRENT_PATH + "miseq_sop_report.txt")
-
+	
 	print "Execution completed at ", time.strftime("%Y-%m-%d %H:%M:%S")
 	report("Execution completed at " + time.strftime("%Y-%m-%d %H:%M:%S"))
 	report("####################################################################")
@@ -2805,5 +2804,6 @@ def main(argv):
 	report("MISEQ SOP EXECUTION COMPLETED.")
 	report("Completion time: " + time.strftime("%Y-%m-%d %H:%M:%S"))
 	print "Completion time: ", time.strftime("%Y-%m-%d %H:%M:%S")
+	copy_file(args.outputdir + "miseq_sop_report.txt", CURRENT_PATH + "miseq_sop_report.txt")
 # ################################### FINITO ################################# #
 if __name__ == "__main__": main(sys.argv[1:])
