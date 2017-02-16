@@ -81,6 +81,7 @@ RUN chmod -R 0755 $CURRENT_PATH/MISEQ_SOP_TAXDIR
 # Description:          python
 ##############################################################
 VOLUME $CURRENT_PATH/MISEQ_SOP_OUTPUTDIR
+VOLUME $CURRENT_PATH/MISEQ_SOP_INPUTDIR
 RUN wget https://raw.githubusercontent.com/amirshams84/Miseq_SOP/master/miseq_sop.py -P $CURRENT_PATH/
 
 
