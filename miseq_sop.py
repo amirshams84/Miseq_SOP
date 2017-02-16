@@ -1114,8 +1114,9 @@ def classify_centroids(fasta_file_PATH, reference_file_PATH, taxonomy_file_PATH,
 		for i in f:
 			i = i.rstrip()
 			line = i.split('\t')
-			if line[1] not in uniq_list:
-				uniq_list.append(line[1])
+			clean_tax = line[1].split('_TAG_')[0] + ';'
+			if clean_tax not in uniq_list:
+				uniq_list.append(clean_tax)
 				uniq_otus_string += i + '\n'
 				uniq_otu_accnos_file += line[0] + '\n'
 		f.close()
@@ -1263,25 +1264,24 @@ def alignment_report_parser(alignment_report_file_PATH, centroids_taxonomy_file_
 		Order_name = TAX_LIST[3]
 		Family_name = TAX_LIST[4]
 		Genus_name = TAX_LIST[5]
-		Species_name = TAX_LIST[6].split('_Strain_')[0]
+		Species_name = TAX_LIST[6].split('_TAG_')[0]
 		if satisfy is True:
 			sas_string += Library_id + '\t' + Read_id + '\t' + Query_length + '\t' + Reference_length + '\t' + Compressed_alignment + '\t' + Expected_error_rate + '\t'
 			sas_string += Average_error_probability + '\t' + Average_Phred_score + '\t' + Identity + '\t' + Ref_id + '\t' + Ref_acc + '\t' + BEI + '\t'
 			sas_string += Kingdom_name + '\t' + Phylum_name + '\t' + Class_name + '\t' + Order_name + '\t' + Family_name + '\t' + Genus_name + '\t' + Species_name + '\n'
 		else:
-			sas_string += Library_id + '\t' + Read_id + '\t' + Query_length + '\t' + '' + '\t' + '' + '\t' + '' + '\t'
-			sas_string += '' + '\t' + '' + '\t' + '.' + '\t' + '' + '\t' + '' + '\t' + '.' + '\t'
+			sas_string += Library_id + '\t' + Read_id + '\t' + Query_length + '\t' + '' + '\t' + '' + '\t' + '.' + '\t'
+			sas_string += '.' + '\t' + '.' + '\t' + '.' + '\t' + '' + '\t' + '' + '\t' + '.' + '\t'
 			sas_string += '' + '\t' + '' + '\t' + '' + '\t' + '' + '\t' + '' + '\t' + '' + '\t' + '' + '\n'
 		######################END OF FILLING SAS STRING
-		
-		Sample_name = Read_DICT[QueryName]
-		if Sample_name not in Sample_DICT:
-			Sample_DICT[Sample_name] = {}
-			Sample_DICT[Sample_name][TemplateName] = 1
-		elif TemplateName not in Sample_DICT[Sample_name]:
-			Sample_DICT[Sample_name][TemplateName] = 1
-		else:
-			Sample_DICT[Sample_name][TemplateName] += 1
+		if satisfy is True:
+			Sample_name = Read_DICT[QueryName]
+			if Sample_name not in Sample_DICT:
+				Sample_DICT[Sample_name] = {}
+			elif TemplateName not in Sample_DICT[Sample_name]:
+				Sample_DICT[Sample_name][TemplateName] = 1
+			else:
+				Sample_DICT[Sample_name][TemplateName] += 1
 
 	f.close()
 
@@ -2791,6 +2791,7 @@ def main(argv):
 	copy_file(BIOM_file_PATH, CURRENT_PATH + 'miseq_sop_result_biom_format.biom')
 	copy_file(SAS_file_PATH, CURRENT_PATH + 'miseq_sop_result_sas_format.txt')
 	copy_file(shared_file_PATH, CURRENT_PATH + 'miseq_sop_result_mothur_format.txt')
+
 	print "Execution completed at ", time.strftime("%Y-%m-%d %H:%M:%S")
 	report("Execution completed at " + time.strftime("%Y-%m-%d %H:%M:%S"))
 	report("####################################################################")
